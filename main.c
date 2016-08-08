@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 11:52:20 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/05 15:53:12 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/08/08 17:13:22 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int		main(int argc, char **argv)
 	a = (t_pile *)ft_memalloc(sizeof(t_pile) * argc);
 	b = (t_pile *)ft_memalloc(sizeof(t_pile) * argc);
 	ft_set_stack(argc, argv, a);
-	ft_display_stacks(a, b);
-	ft_revr_operation(&a);
-	ft_display_stacks(a, b);
+//	ft_display_stacks(a, b);
+	ft_putnbr(ft_algo(a, b));
+//	ft_display_stacks(a, b);
 	return (0);
 }
