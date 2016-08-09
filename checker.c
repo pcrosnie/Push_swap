@@ -6,13 +6,13 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 16:23:59 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/08 17:34:00 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/08/09 09:59:12 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void    ft_display_stacks(t_pile *a, t_pile *b)
+void	ft_display_stacks(t_pile *a, t_pile *b)
 {
 	if (a)
 	{
@@ -57,25 +57,28 @@ int		ft_check_sort(t_pile *a, t_pile *b)
 
 void	ft_set_operation(char *str, t_pile **ta, t_pile **tb)
 {
-	t_pile *a;
-	t_pile *b;
+	t_pile	*a;
+	t_pile	*b;
+	int		tmp;
 
 	a = *ta;
 	b = *tb;
-	(ft_strequ(str, "ra") == 1) ? ft_r_operation(&a) : 0;
-	(ft_strequ(str, "rb") == 1) ? ft_r_operation(&b) : 0;
-	(ft_strequ(str, "rr") == 1) ? ft_rr_operation(&a, &b) : 0;
-	(ft_strequ(str, "rra") == 1) ? ft_revr_operation(&a) : 0;
-	(ft_strequ(str, "rrb") == 1) ? ft_revr_operation(&b) : 0;
-	(ft_strequ(str, "rrr") == 1) ? ft_revr_both_operation(&a, &b) : 0;
-	(ft_strequ(str, "sa") == 1) ? ft_s_operation(a) : 0;
-	(ft_strequ(str, "sb") == 1) ? ft_s_operation(b) : 0;
-	(ft_strequ(str, "ss") == 1) ? ft_ss_operation(a, b) : 0;
-	(ft_strequ(str, "pa") == 1) ? ft_p_operation(&b, &a) : 0;
-	(ft_strequ(str, "pb") == 1) ? ft_p_operation(&a, &b) : 0;
+	tmp = 0;
+	(ft_strequ(str, "ra") == 1) ? ft_r_operation(&a) : tmp++;
+	(ft_strequ(str, "rb") == 1) ? ft_r_operation(&b) : tmp++;
+	(ft_strequ(str, "rr") == 1) ? ft_rr_operation(&a, &b) : tmp++;
+	(ft_strequ(str, "rra") == 1) ? ft_revr_operation(&a) : tmp++;
+	(ft_strequ(str, "rrb") == 1) ? ft_revr_operation(&b) : tmp++;
+	(ft_strequ(str, "rrr") == 1) ? ft_revr_both_operation(&a, &b) : tmp++;
+	(ft_strequ(str, "sa") == 1) ? ft_s_operation(a) : tmp++;
+	(ft_strequ(str, "sb") == 1) ? ft_s_operation(b) : tmp++;
+	(ft_strequ(str, "ss") == 1) ? ft_ss_operation(a, b) : tmp++;
+	(ft_strequ(str, "pa") == 1) ? ft_p_operation(&b, &a) : tmp++;
+	(ft_strequ(str, "pb") == 1) ? ft_p_operation(&a, &b) : tmp++;
 	*ta = a;
 	*tb = b;
-//	ft_display_stacks(a, b);
+	if (tmp == 11)
+		ft_putstr("Invalid\n");
 }
 
 void	ft_set_stack(int argc, char **argv, t_pile *a)
@@ -95,16 +98,15 @@ void	ft_set_stack(int argc, char **argv, t_pile *a)
 
 int		main(int argc, char **argv)
 {
-	char *str;
-	t_pile *a;
-	t_pile *b;
+	char	*str;
+	t_pile	*a;
+	t_pile	*b;
 
 	a = (t_pile *)malloc(sizeof(t_pile) * 10);
 	b = (t_pile *)malloc(sizeof(t_pile) * 10);
 	ft_set_stack(argc, argv, a);
 	while (get_next_line(0, &str))
 		ft_set_operation(str, &a, &b);
-//	ft_display_stacks(a, b);
 	if (ft_check_sort(a, b) == 0)
 		ft_putstr("KO\n");
 	else

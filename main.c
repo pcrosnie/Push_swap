@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 11:52:20 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/08 17:13:22 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/08/09 10:37:11 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ void	ft_display_stacks(t_pile *a, t_pile *b)
 {
 	if (a)
 	{
-	ft_putstr("pile A :\n");
-	while (a->next != NULL)
-	{
-		ft_putnbr(a->nb);
-		ft_putchar('\n');
-		a = a->next;
-	}
+		ft_putstr("pile A :\n");
+		while (a->next != NULL)
+		{
+			ft_putnbr(a->nb);
+			ft_putchar('\n');
+			a = a->next;
+		}
 	}
 	if (b)
 	{
-	ft_putstr("pile B:\n");
-	while (b->next != NULL)
-	{
-		ft_putnbr(b->nb);
-		ft_putchar('\n');
-		b = b->next;
-	}
+		ft_putstr("pile B:\n");
+		while (b->next != NULL)
+		{
+			ft_putnbr(b->nb);
+			ft_putchar('\n');
+			b = b->next;
+		}
 	}
 }
 
@@ -71,6 +71,31 @@ void	ft_set_stack(int argc, char **argv, t_pile *a)
 	a = NULL;
 }
 
+int		ft_check_stack(t_pile *a)
+{
+	t_pile	*tmp;
+	int		nb;
+
+	tmp = a;
+	nb = a->nb;
+	if (a->next)
+		a = a->next;
+	while (tmp->next != NULL)
+	{
+		a = tmp;
+		nb = a->nb;
+		a = a->next;
+		while (a->next != NULL)
+		{
+			if (a->nb == nb)
+				return (0);
+			a = a->next;
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
 int		main(int argc, char **argv)
 {
 	t_pile *a;
@@ -81,8 +106,11 @@ int		main(int argc, char **argv)
 	a = (t_pile *)ft_memalloc(sizeof(t_pile) * argc);
 	b = (t_pile *)ft_memalloc(sizeof(t_pile) * argc);
 	ft_set_stack(argc, argv, a);
-//	ft_display_stacks(a, b);
+	if (ft_check_stack(a) == 0)
+	{
+		ft_putstr("ERROR\n");
+		return (0);
+	}
 	ft_putnbr(ft_algo(a, b));
-//	ft_display_stacks(a, b);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 13:45:49 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/08 16:49:32 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/08/09 10:36:28 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,6 @@ int		ft_check_sort(t_pile *a)
 	return (1);
 }
 
-int		ft_inv_sort(t_pile *ptr)
-{
-	int nb;
-
-	nb = ptr->nb;
-	if (ptr->next)
-	ptr = ptr->next;
-	while (ptr->next != NULL)
-	{
-		if (ptr->nb < nb)
-			return (0);
-		ptr = ptr->next;
-	}
-	return (1);
-}
-
 int		ft_lst_len(t_pile *ptr)
 {
 	int i;
@@ -58,26 +42,39 @@ int		ft_lst_len(t_pile *ptr)
 	return (i);
 }
 
-int		ft_is_min(t_pile *ptr)
+int		ft_r_or_rr(t_pile **a, int tmp)
 {
-	int nb;
-	int i;
-	int j;
+	t_pile *ptr;
 
-	i = 0;
-	j = 0;
-	nb = ptr->nb;
-	while (ptr->next != NULL)
+	ptr = *a;
+	if (tmp >= ft_lst_len(ptr) / 2)
 	{
-		if (ptr->nb < nb)
-		{
-			nb = ptr->nb;
-			i = j;
-		}
-		ptr = ptr->next;
-		j++;
+		ft_revr_operation(&ptr);
+		ft_putstr("rra\n");
 	}
-	return (i);
+	else
+	{
+		ft_r_operation(&ptr);
+		ft_putstr("ra\n");
+	}
+	*a = ptr;
+	return (1);
+}
+
+int		ft_sp_operation(t_pile **a, t_pile **b)
+{
+	t_pile *tmp;
+	t_pile *tmp2;
+
+	tmp = *a;
+	tmp2 = *b;
+	ft_s_operation(tmp);
+	ft_putstr("sa\n");
+	ft_p_operation(&tmp, &tmp2);
+	ft_putstr("pb\n");
+	*a = tmp;
+	*b = tmp2;
+	return (2);
 }
 
 int		ft_algo(t_pile *a, t_pile *b)
@@ -85,33 +82,13 @@ int		ft_algo(t_pile *a, t_pile *b)
 	int	nb_operation;
 	int	tmp;
 
-	tmp = a->nb;
 	nb_operation = 0;
 	while (ft_check_sort(a) == 0)
 	{
 		if (ft_is_min(a) == 1)
-		{
-			ft_s_operation(a);
-			nb_operation += 2;
-			ft_putstr("sa\n");
-			ft_p_operation(&a, &b);
-			ft_putstr("pb\n");
-		}
-		while ((tmp = ft_is_min(a) != 0))
-		{
-		if (tmp > ft_lst_len(a) / 2)
-		{
-			nb_operation++;
-			ft_revr_operation(&a);
-			ft_putstr("rra\n");
-		}
-		else
-		{
-			nb_operation++;
-			ft_r_operation(&a);
-			ft_putstr("ra\n");
-		}
-		}
+			nb_operation += ft_sp_operation(&a, &b);
+		while ((tmp = ft_is_min(a)))
+			nb_operation += ft_r_or_rr(&a, tmp);
 		ft_p_operation(&a, &b);
 		nb_operation++;
 		ft_putstr("pb\n");
