@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 11:52:41 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/09 10:36:16 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/08/18 12:07:10 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ typedef struct	s_pile
 	struct s_pile	*next;
 }				t_pile;
 
+typedef struct	s_data
+{
+	int record_ret;
+	int *record_suit;
+}				t_data;
+
+void			ft_print_int_tab(int *str, int len);
+int				*ft_set_str(t_pile *a);
+int				ft_lst_len(t_pile *ptr);
 int				ft_is_min(t_pile *ptr);
 int				ft_inv_sort(t_pile *ptr);
 int				ft_rr_operation(t_pile **a, t_pile **b);

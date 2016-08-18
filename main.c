@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 11:52:20 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/09 10:37:11 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/08/18 09:37:33 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,6 @@ int		main(int argc, char **argv)
 		ft_putstr("ERROR\n");
 		return (0);
 	}
-	ft_putnbr(ft_algo(a, b));
+	ft_algo(a, b);
 	return (0);
 }

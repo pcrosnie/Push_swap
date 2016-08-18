@@ -5,101 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/08 13:45:49 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/09 10:36:28 by pcrosnie         ###   ########.fr       */
+/*   Created: 2016/08/18 11:12:09 by pcrosnie          #+#    #+#             */
+/*   Updated: 2016/08/18 14:22:06 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		ft_check_sort(t_pile *a)
+int		*ft_int_dup_nf(int *str, int len)
 {
-	int nb;
+	int i;
+	int *cpy;
 
-	nb = a->nb;
-	if (a->next != NULL)
-		a = a->next;
-	while (a->next != NULL)
+	i = 0;
+	cpy = (int *)malloc(sizeof(int) * (len + 1));
+	while (i < len)
 	{
-		if (a->nb < nb)
-			return (0);
-		nb = a->nb;
-		a = a->next;
+		cpy[i] = str[i];
+		i++;
 	}
-	return (1);
+	free(str);
+	return (cpy);
 }
 
-int		ft_lst_len(t_pile *ptr)
+int		ft_find_smaller_after(int *str, int i, t_pile *a)
 {
+	int nb;
+	int start;
+
+	start = str[0];
+	nb = str[i];
+	while (i < ft_lst_len(a))
+	{
+		if (str[i] > start && str[i] < nb)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	ft_find_suit(int **tab, t_data *ptr, int step)
+{
+	int i;
+	
+		
+	
+}
+
+int		ft_check_pos_suit(t_pile *a, t_data *ptr)
+{
+	int **tab;
+	int *str;
+	int ret;
 	int i;
 
 	i = 0;
-	while (ptr->next != NULL)
-	{
-		i++;
-		ptr = ptr->next;
-	}
-	return (i);
-}
-
-int		ft_r_or_rr(t_pile **a, int tmp)
-{
-	t_pile *ptr;
-
-	ptr = *a;
-	if (tmp >= ft_lst_len(ptr) / 2)
-	{
-		ft_revr_operation(&ptr);
-		ft_putstr("rra\n");
-	}
-	else
-	{
-		ft_r_operation(&ptr);
-		ft_putstr("ra\n");
-	}
-	*a = ptr;
-	return (1);
-}
-
-int		ft_sp_operation(t_pile **a, t_pile **b)
-{
-	t_pile *tmp;
-	t_pile *tmp2;
-
-	tmp = *a;
-	tmp2 = *b;
-	ft_s_operation(tmp);
-	ft_putstr("sa\n");
-	ft_p_operation(&tmp, &tmp2);
-	ft_putstr("pb\n");
-	*a = tmp;
-	*b = tmp2;
-	return (2);
+	tab = (int **)malloc(sizeof(int *) * 2);
+	ptr->record_ret = 0;
+	str = ft_set_str(a);
+	tab[0] = str;
+	tab[1] = (int *)malloc(sizeof(int ) * (ft_lst_len(a) + 1));
+	tab[1] = ft_memset(tab[1], '\0', ft_lst_len(a) + 1);
+	ft_find_suit(str, ptr);
+	
+	
 }
 
 int		ft_algo(t_pile *a, t_pile *b)
 {
 	int	nb_operation;
-	int	tmp;
+	int	*str;
+	int lim;
+	t_data *ptr;
 
+	ptr = (t_data *)malloc(sizeof(t_data) * 5);
 	nb_operation = 0;
-	while (ft_check_sort(a) == 0)
-	{
-		if (ft_is_min(a) == 1)
-			nb_operation += ft_sp_operation(&a, &b);
-		while ((tmp = ft_is_min(a)))
-			nb_operation += ft_r_or_rr(&a, tmp);
-		ft_p_operation(&a, &b);
-		nb_operation++;
-		ft_putstr("pb\n");
-	}
-	while (b->next != NULL)
-	{
-		ft_p_operation(&b, &a);
-		nb_operation++;
-		ft_putstr("pa\n");
-	}
-	ft_display_stacks(a, b);
-	ft_putstr("\nNB OPERATIONS :");
-	return (nb_operation);
+	ft_lst_len(b);
+	str = ft_check_pos_suit(a, &lim, 0);
+	ft_print_int_tab(str, lim);
+	return (0);
 }
