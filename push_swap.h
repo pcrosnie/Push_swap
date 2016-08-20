@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 11:52:41 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/18 12:07:10 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/08/20 15:48:29 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct	s_pile
 
 typedef struct	s_data
 {
+	int i_tmp;
+	int	now_record;
+	int lst_len;
 	int record_ret;
 	int *record_suit;
 }				t_data;
