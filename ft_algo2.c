@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 13:45:49 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/18 11:44:10 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/07 12:26:41 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		ft_sp_operation(t_pile **a, t_pile **b)
 	*b = tmp2;
 	return (2);
 }
-/*
+
 int		ft_algo2(t_pile *a, t_pile *b)
 {
 	int	nb_operation;
@@ -121,7 +121,7 @@ int		ft_is_stack_min(int *str, int lim)
 	while (str[i] != tmp)
 		i++;
 	return (i);
-}*/
+}
 
 void	ft_print_int_tab(int *str, int len)
 {

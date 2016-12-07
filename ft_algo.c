@@ -5,148 +5,184 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/08/18 11:12:09 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/08/20 15:57:45 by pcrosnie         ###   ########.fr       */
+/*   Created: 2016/08/08 13:45:49 by pcrosnie          #+#    #+#             */
+/*   Updated: 2016/12/07 14:21:40 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int		ft_check_sort(t_pile *a)
+{
+	int nb;
 
+	nb = a->nb;
+	if (a->next != NULL)
+		a = a->next;
+	while (a->next != NULL)
+	{
+		if (a->nb < nb)
+			return (0);
+		nb = a->nb;
+		a = a->next;
+	}
+	return (1);
+}
 
-int		ft_find_next_min(int *str, t_pile *a, int tmp2)
+int		ft_lst_len(t_pile *ptr)
 {
 	int i;
-	int step;
-	int tmp;
 
 	i = 0;
-	step = 0;
-	tmp = str[0];
-	while (tmp <= tmp2)
+	while (ptr->next != NULL)
 	{
-		tmp = str[i++];
-	}
-	i = 0;
-	while (i < ft_lst_len(a))
-	{
-		if (str[i] <= tmp && str[i] > tmp2)
-		{
-			tmp = str[i];
-			step = i;
-		}
 		i++;
+		ptr = ptr->next;
 	}
-	return (step);
+	return (i);
 }
 
-int		ft_find_min(int *str, t_pile *a)
+int		ft_r_or_rr(t_pile **a, int tmp)
 {
-	int i;
-	int step;
-	int tmp;
+	t_pile *ptr;
 
-	i = 0;
-	step = 0;
-	tmp = str[0];
-	while (i < ft_lst_len(a))
+	ptr = *a;
+	if (tmp >= ft_lst_len(ptr) / 2)
 	{
-		if (str[i] < tmp)
-		{
-			tmp = str[i];
-			step = i;
-		}
-		i++;
-	}
-	return (step);
-}
-
-int		ft_search(int *str, int nb, int i, int len)
-{
-	while (i < len)
-	{
-		if (nb == str[i])
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-int		ft_find_greatest_suit(int **str, t_data *ptr, int i, int nb_cherche)
-{
-	ft_putnbr(ptr->now_record);
-	ft_putchar('\n');
-	ptr->i_tmp = i;
-	if (ptr->now_record > ptr->record_ret)
-		ptr->record_ret = ptr->now_record;
-	if ((i >= ptr->lst_len - 1 && nb_cherche == ptr->lst_len) || i < 0)
-		return (0);
-	i = ft_search(str[1], nb_cherche, i, ptr->lst_len);	
-	if (i > 0)
-	{
-		ft_putchar('A');
-		ptr->now_record++;
-		ft_find_greatest_suit(str, ptr, i + 1, nb_cherche + 1);
-	}
-	else if (nb_cherche >= ptr->lst_len)
-	{
-		ft_putchar('B');
-		ft_find_greatest_suit(str, ptr, i, nb_cherche + 1);
+		ft_revr_operation(&ptr);
+		ft_putstr("rra\n");
 	}
 	else
 	{
-		ft_putchar('C');
-		ptr->now_record--;
-		ft_find_greatest_suit(str, ptr, ptr->i_tmp - 1, str[i][ptr->i_tmp] + 1);
+		ft_r_operation(&ptr);
+		ft_putstr("ra\n");
 	}
-	return (0);
+	*a = ptr;
+	return (1);
 }
 
-void	ft_check_pos_suit(t_pile *a, t_data *ptr, int j)
+int		ft_sp_operation(t_pile **a, t_pile **b)
 {
-	int **str;
-	int tmp;
-	int step;
-	int i;
+	t_pile *tmp;
+	t_pile *tmp2;
 
-	step = 1;
-	ptr->lst_len = ft_lst_len(a);
-	str = (int **)malloc(sizeof(int *) * 2);
-	str[0] = ft_set_str(a);
-	str[1] = (int *)malloc(sizeof(int) * (ft_lst_len(a) + 1));
-	str[1] = (int *)ft_memset(str[1], 0, (ft_lst_len(a) + 1));
-	i = ft_find_min(str[0], a);
-	tmp = str[0][i];
-	str[1][i] = step++;
-	i = 0;
-	j = 1;
-	while (j < ft_lst_len(a))
-	{
-//		ft_putnbr(tmp);
-//		ft_putchar('\n');
-		i = ft_find_next_min(str[0], a, tmp);
-		tmp = str[0][i];
-		str[1][i] = step++;
-		j++;
-	}
-//	ft_putstr("here\n");
-	ft_find_greatest_suit(str, ptr, 1, 2);
-//	ft_print_int_tab(str[0], ft_lst_len(a));
-//	ft_print_int_tab(str[1], ft_lst_len(a));
+	tmp = *a;
+	tmp2 = *b;
+	ft_s_operation(tmp);
+	ft_putstr("sa\n");
+	ft_p_operation(&tmp, &tmp2);
+	ft_putstr("pb\n");
+	*a = tmp;
+	*b = tmp2;
+	return (2);
 }
 
-int		ft_algo(t_pile *a, t_pile *b)
+int		ft_algo2(t_pile *a, t_pile *b)
 {
 	int	nb_operation;
-	t_data *ptr;
+	int	tmp;
 
-	ptr = (t_data *)malloc(sizeof(t_data) * 5);
-	ptr->record_suit = (int *)malloc(sizeof(int) * (ft_lst_len(a) + 1));
-	ptr->record_ret = 0;
-	ptr->now_record = 0;
 	nb_operation = 0;
-	ft_lst_len(b);
-	ft_check_pos_suit(a, ptr, 0);
-//	ft_print_int_tab(str, lim);
-	return (0);
+	while (ft_check_sort(a) == 0)
+	{
+		if (ft_is_min(a) == 1)
+			nb_operation += ft_sp_operation(&a, &b);
+		while ((tmp = ft_is_min(a)))
+			nb_operation += ft_r_or_rr(&a, tmp);
+		ft_p_operation(&a, &b);
+		nb_operation++;
+		ft_putstr("pb\n");
+	}
+	while (b->next != NULL)
+	{
+		ft_p_operation(&b, &a);
+		nb_operation++;
+		ft_putstr("pa\n");
+	}
+//	ft_display_stacks(a, b);
+	ft_putstr("\nNB OPERATIONS :");
+	return (nb_operation);
 }
+
+int		ft_is_stack_min(int *str, int lim)
+{
+	int i;
+	int tmp;
+
+	i = 1;
+	tmp = str[0];
+	while (i < lim)
+	{
+		if (str[i] < tmp)
+			tmp = str[i];
+		i++;
+	}
+	i = 0;
+	while (str[i] != tmp)
+		i++;
+	return (i);
+}
+
+void	ft_print_int_tab(int *str, int len)
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		ft_putnbr(str[i]);
+		ft_putchar('\n');
+		i++;
+	}
+}
+/*
+int		ft_find_med(t_pile *a, int *str)
+{
+	int	i;
+	int j;
+	int tmp;
+
+	i = ft_lst_len(a) - 1;
+	while (i >= ft_lst_len(a) / 2)
+	{
+		j = ft_is_stack_min(str, i);
+		tmp = str[i];
+		str[i] = str[j];
+		str[j] = tmp;
+		i--;
+	}
+	return (str[i + 1]);
+}*/
+
+int		*ft_set_str(t_pile *a)
+{
+	int i;
+	int j;
+	int *str;
+	t_pile *tmp;
+
+	tmp = a;
+	i = 0;
+	j = 0;
+	str = (int *)malloc(sizeof(int) * (ft_lst_len(a) + 1));
+	while (a->next != NULL)
+	{
+		str[i++] = a->nb;
+		a = a->next;
+	}
+	return (str);
+}
+/*
+int		ft_algo(t_pile *a, t_pile *b)
+{
+	int nb_operation;
+	int	mediane;
+	t_pile *tmp;
+
+	tmp = b;
+	nb_operation = 0;
+	mediane = ft_set_med(a);
+	ft_putnbr(mediane);
+	ft_putchar('\n');
+	return (0);	
+}*/
