@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:32:29 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/12/08 14:02:39 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/08 14:48:54 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int		partition(t_pile **a, t_pile **b, int left, int right)
 			j--;
 		if (i <= j)
 		{
+			ft_putstr("LEN:");
+			ft_putnbr(h);
+			ft_putchar('\n');
 			ft_putstr("PIVOT:");
 			ft_putnbr(pivot);
 			ft_putstr("I:");
@@ -44,7 +47,7 @@ int		partition(t_pile **a, t_pile **b, int left, int right)
 			j--;
 		}
 	}
-	printf("I %d\n", i);
+//	printf("I %d\n", i);
 	return (i);
 }
 
@@ -60,6 +63,7 @@ void	solve(t_pile **a, t_pile **b, int left, int right)
 	}
 	if (index < right)
 	{
+		ft_putstr("SECOND\n");
 		solve(a, b, left, index);
 	}
 }
