@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 11:52:41 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/12/07 14:21:46 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:23:27 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # include "get_next_line.h"
+# include <stdio.h>
 
 typedef struct	s_pile
 {
@@ -31,6 +32,9 @@ typedef struct	s_data
 	int *record_suit;
 }				t_data;
 
+int				check_sort(t_pile *a);
+void			solve(t_pile **a, t_pile **b, int left, int right);
+int				get_value(int index, t_pile *a);
 int				invers_pos(int index1, int index2, t_pile **a, t_pile **b);
 void			ft_print_int_tab(int *str, int len);
 int				*ft_set_str(t_pile *a);

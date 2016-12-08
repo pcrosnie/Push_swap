@@ -6,7 +6,7 @@
 #    By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/24 13:16:13 by pcrosnie          #+#    #+#              #
-#    Updated: 2016/12/07 13:08:24 by pcrosnie         ###   ########.fr        #
+#    Updated: 2016/12/07 15:58:04 by pcrosnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME2 = checker
 
 LIB = libft/libft.a
 
-SRC = main.c ft_operations1.c ft_operations2.c ft_algo.c invert_pos.c
+SRC = main.c ft_operations1.c ft_operations2.c ft_algo.c invert_pos.c solve.c
 
 SRC2 = checker.c ft_operations1.c ft_operations2.c get_next_line.c
 

@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/05 11:52:20 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/12/07 14:47:16 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/08 13:56:42 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,15 @@ int		main(int argc, char **argv)
 	b = (t_pile *)ft_memalloc(sizeof(t_pile) * argc);
 	ft_set_stack(argc, argv, a);
 	ft_display_stacks(a, b);
-	invers_pos(4, 6, &a, &b);
-	ft_display_stacks(a, b);
-	ft_putstr("HERE\n");
-	ft_putstr("\n\n\n");
+//	invers_pos(1, 4, &a, &b);
+//	ft_display_stacks(a, b);
 	if (ft_check_stack(a) == 0)
 	{
 		ft_putstr("ERROR\n");
 		return (0);
 	}
-	ft_putnbr(ft_algo2(a, b));
+	solve(&a, &b, 0, ft_lst_len(a) - 1);
+	ft_display_stacks(a, b);
+//	ft_putnbr(ft_algo2(a, b));
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 13:45:49 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/12/07 14:21:40 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/08 11:52:23 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		ft_check_sort(t_pile *a)
+int		check_sort(t_pile *a)
 {
 	int nb;
 
@@ -83,7 +83,7 @@ int		ft_algo2(t_pile *a, t_pile *b)
 	int	tmp;
 
 	nb_operation = 0;
-	while (ft_check_sort(a) == 0)
+	while (check_sort(a) == 0)
 	{
 		if (ft_is_min(a) == 1)
 			nb_operation += ft_sp_operation(&a, &b);
