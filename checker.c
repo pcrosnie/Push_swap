@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/08 16:23:59 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/12/07 17:35:51 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/08 16:11:29 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_check_sort(t_pile *a, t_pile *b)
 	return (1);
 }
 
-void	ft_set_operation(char *str, t_pile **ta, t_pile **tb)
+int		ft_set_operation(char *str, t_pile **ta, t_pile **tb)
 {
 	t_pile	*a;
 	t_pile	*b;
@@ -79,6 +79,7 @@ void	ft_set_operation(char *str, t_pile **ta, t_pile **tb)
 	*tb = b;
 	if (tmp == 11)
 		ft_putstr("Invalid\n");
+	return (1);
 }
 
 void	ft_set_stack(int argc, char **argv, t_pile *a)
@@ -101,15 +102,18 @@ int		main(int argc, char **argv)
 	char	*str;
 	t_pile	*a;
 	t_pile	*b;
+	int 	nb_op;
 
+	nb_op = 0;
 	a = (t_pile *)malloc(sizeof(t_pile) * 10);
 	b = (t_pile *)malloc(sizeof(t_pile) * 10);
 	ft_set_stack(argc, argv, a);
 	while (get_next_line(0, &str))
-		ft_set_operation(str, &a, &b);
+		nb_op += ft_set_operation(str, &a, &b);
 	if (ft_check_sort(a, b) == 0)
 		ft_putstr("KO\n");
 	else
 		ft_putstr("OK\n");
+	ft_putnbr(nb_op);
 	return (0);
 }

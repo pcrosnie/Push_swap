@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 12:14:35 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/12/08 14:03:45 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/08 16:06:54 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int invers_pos(int index1, int index2, t_pile **a, t_pile **b)
 	int value2;
 	int tmp_index;
 	int tmp2_index;
+	int nb_op;
 
+	nb_op = 0;
 //	printf("indexs : %d %d\n", index1, index2);
 //	ft_putstr("IN\n");
 //	ft_display_stacks(*a, *b);
@@ -68,38 +70,52 @@ int invers_pos(int index1, int index2, t_pile **a, t_pile **b)
 	while (index1 != 0)
 	{
 		ft_r_operation(a);
+		ft_putstr("ra\n");
+		nb_op++;
 		index1 = get_new_index(value1, *a);
 	}
 	ft_p_operation(a, b);
 	ft_putstr("pb\n");
+	nb_op++;
 	index2 = get_new_index(value2, *a);
 	tmp_index = index2;
 	while (index2 != 0)
 	{
 		ft_r_operation(a);
+		ft_putstr("ra\n");
+		nb_op++;
 		index2 = get_new_index(value2, *a);
 	}
 	ft_p_operation(b, a);
 	ft_putstr("pa\n");
+	nb_op++;
 	ft_r_operation(a);
 	ft_putstr("ra\n");
+	nb_op++;
 	ft_p_operation(a, b);
 	ft_putstr("pb\n");
+	nb_op++;
 	ft_revr_operation(a);
 	ft_putstr("rra\n");
+	nb_op++;
 	while (tmp_index > 0)
 	{
 		ft_revr_operation(a);
+		ft_putstr("rra\n");
+		nb_op++;
 		tmp_index--;
 	}
 	ft_p_operation(b, a);
 	ft_putstr("pa\n");
+	nb_op++;
 	while (tmp2_index > 0)
 	{
 		ft_revr_operation(a);
+		ft_putstr("rra\n");
+		nb_op++;
 		tmp2_index--;
 	}
 //	ft_putstr("OUT\n");
 //	ft_display_stacks(*a, *b);
-	return (0);
+	return (nb_op);
 }

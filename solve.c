@@ -6,7 +6,7 @@
 /*   By: pcrosnie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 15:32:29 by pcrosnie          #+#    #+#             */
-/*   Updated: 2016/12/08 14:48:54 by pcrosnie         ###   ########.fr       */
+/*   Updated: 2016/12/08 16:11:45 by pcrosnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		partition(t_pile **a, t_pile **b, int left, int right)
 			j--;
 		if (i <= j)
 		{
-			ft_putstr("LEN:");
+/*			ft_putstr("LEN:");
 			ft_putnbr(h);
 			ft_putchar('\n');
 			ft_putstr("PIVOT:");
@@ -40,9 +40,9 @@ int		partition(t_pile **a, t_pile **b, int left, int right)
 			ft_putnbr(i);
 			ft_putstr("J:");
 			ft_putnbr(j);
-			ft_putchar('\n');
+			ft_putchar('\n');*/
 			invers_pos(i, j, a, b);
-			ft_display_stacks(*a, *b);
+	//		ft_display_stacks(*a, *b);
 			i++;
 			j--;
 		}
@@ -57,13 +57,13 @@ void	solve(t_pile **a, t_pile **b, int left, int right)
 
 	index = partition(a, b, left, right);
 //	printf("IN SOLVE index: %d left : %d right : %d\n", index, left, right);
-	if (left < index - 1)
+	if (left < index)
 	{
-		solve(a, b, index - 1, right);
+		solve(a, b, index, right);
 	}
 	if (index < right)
 	{
-		ft_putstr("SECOND\n");
+//		ft_putstr("SECOND\n");
 		solve(a, b, left, index);
 	}
 }
